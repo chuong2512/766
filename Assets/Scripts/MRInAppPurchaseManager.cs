@@ -6,10 +6,10 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Purchasing;
-using UnityEngine.Purchasing.Extension;
+using UnityEngine.Purchasing;/*
+using UnityEngine.Purchasing.Extension;*/
 
-public class MRInAppPurchaseManager : MonoBehaviour, IStoreListener
+public class MRInAppPurchaseManager : MonoBehaviour/*, IStoreListener*/
 {
 	[Serializable]
 	public class InAppProduct
@@ -20,7 +20,7 @@ public class MRInAppPurchaseManager : MonoBehaviour, IStoreListener
 
 		public string ID_IOS;
 
-		public ProductType type;
+		/*public ProductType type;*/
 
 		public UnityEvent purchaseSuccessAction;
 	}
@@ -175,11 +175,11 @@ public class MRInAppPurchaseManager : MonoBehaviour, IStoreListener
 
 	private sealed class _ProcessPurchase_c__AnonStorey3
 	{
-		internal PurchaseEventArgs args;
+		/*internal PurchaseEventArgs args;*/
 
 		internal bool __m__0(MRInAppPurchaseManager.InAppProduct asd)
 		{
-			return string.Equals(this.args.purchasedProduct.definition.id, asd.ID, StringComparison.Ordinal);
+			return false;
 		}
 	}
 
@@ -187,9 +187,9 @@ public class MRInAppPurchaseManager : MonoBehaviour, IStoreListener
 
 	public List<MRInAppPurchaseManager.InAppProduct> inAppProducts = new List<MRInAppPurchaseManager.InAppProduct>();
 
-	private static IStoreController m_StoreController;
+	/*private static IStoreController m_StoreController;
 
-	private static IExtensionProvider m_StoreExtensionProvider;
+	private static IExtensionProvider m_StoreExtensionProvider;*/
 
 	public static MRInAppPurchaseManager Instance;
 
@@ -208,10 +208,10 @@ public class MRInAppPurchaseManager : MonoBehaviour, IStoreListener
 
 	private void Start()
 	{
-		if (MRInAppPurchaseManager.m_StoreController == null)
+		/*if (MRInAppPurchaseManager.m_StoreController == null)
 		{
 			this.InitializePurchasing();
-		}
+		}*/
 	}
 
 	public void InitializePurchasing()
@@ -220,17 +220,20 @@ public class MRInAppPurchaseManager : MonoBehaviour, IStoreListener
 		{
 			return;
 		}
-		ConfigurationBuilder configurationBuilder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance(), new IPurchasingModule[0]);
+		/*ConfigurationBuilder configurationBuilder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance(), new IPurchasingModule[0]);
 		foreach (MRInAppPurchaseManager.InAppProduct current in this.inAppProducts)
 		{
 			configurationBuilder.AddProduct(current.ID, current.type);
 		}
-		UnityPurchasing.Initialize(this, configurationBuilder);
+		UnityPurchasing.Initialize(this, configurationBuilder);*/
 	}
 
 	private bool IsInitialized()
 	{
+		return false;
+		/*
 		return MRInAppPurchaseManager.m_StoreController != null && MRInAppPurchaseManager.m_StoreExtensionProvider != null;
+	*/
 	}
 
 	public void Purchase(string productID)
@@ -304,7 +307,7 @@ public class MRInAppPurchaseManager : MonoBehaviour, IStoreListener
 	{
 		if (this.IsInitialized())
 		{
-			Product product = MRInAppPurchaseManager.m_StoreController.products.WithID(productId);
+			/*Product product = MRInAppPurchaseManager.m_StoreController.products.WithID(productId);
 			if (product != null && product.availableToPurchase)
 			{
 				//if (MRUtilities.Instance)
@@ -316,7 +319,7 @@ public class MRInAppPurchaseManager : MonoBehaviour, IStoreListener
 			else if (GUIManager.Instance.CURRENTSCREENNAME == ScreenName.Loader)
 			{
 				GUIManager.Instance.Back();
-			}
+			}*/
 		}
 		else
 		{
@@ -339,15 +342,15 @@ public class MRInAppPurchaseManager : MonoBehaviour, IStoreListener
 		}
 		if (Application.platform == RuntimePlatform.IPhonePlayer || Application.platform == RuntimePlatform.OSXPlayer)
 		{
-			IAppleExtensions extension = MRInAppPurchaseManager.m_StoreExtensionProvider.GetExtension<IAppleExtensions>();
+			/*IAppleExtensions extension = MRInAppPurchaseManager.m_StoreExtensionProvider.GetExtension<IAppleExtensions>();
 			extension.RestoreTransactions(delegate(bool result)
 			{
 				UnityEngine.Debug.Log("MRLOG RestorePurchases continuing: " + result + ". If no further messages, no purchases available to restore.");
-			});
+			});*/
 		}
 	}
 
-	public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
+	/*public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
 	{
 		MRInAppPurchaseManager.m_StoreController = controller;
 		MRInAppPurchaseManager.m_StoreExtensionProvider = extensions;
@@ -411,7 +414,7 @@ public class MRInAppPurchaseManager : MonoBehaviour, IStoreListener
 		{
 			GUIManager.Instance.Back();
 		}
-	}
+	}*/
 
 	private bool IsAppInstalled(string bundleID)
 	{

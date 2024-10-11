@@ -18,10 +18,10 @@ public class IAPKey
     public const string PACK4_RE = "sub10";
 }
 
-public class IAPManager : PersistentSingleton<IAPManager>, IStoreListener
+public class IAPManager : PersistentSingleton<IAPManager>/*, IStoreListener*/
 {
-    private static IStoreController storeController;
-    private static IExtensionProvider extensionProvider;
+    /*private static IStoreController storeController;
+    private static IExtensionProvider extensionProvider;*/
     public static Action OnPurchaseSuccess;
 
     private bool _isBuyFromShop;
@@ -33,7 +33,7 @@ public class IAPManager : PersistentSingleton<IAPManager>, IStoreListener
 
     private void InitIAP()
     {
-        if (storeController == null)
+        /*if (storeController == null)*/
         {
             InitProduct();
         }
@@ -46,7 +46,7 @@ public class IAPManager : PersistentSingleton<IAPManager>, IStoreListener
             return;
         }
 
-        var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
+        /*var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
 
         builder.AddProduct(IAPKey.PACK1, ProductType.Consumable);
         builder.AddProduct(IAPKey.PACK2, ProductType.Consumable);
@@ -58,7 +58,7 @@ public class IAPManager : PersistentSingleton<IAPManager>, IStoreListener
         builder.AddProduct(IAPKey.PACK3_RE, ProductType.Subscription);
         builder.AddProduct(IAPKey.PACK4_RE, ProductType.Subscription);
         
-        UnityPurchasing.Initialize(this, builder);
+        UnityPurchasing.Initialize(this, builder);*/
     }
 
     public void BuyProductID(string productId)
@@ -66,9 +66,9 @@ public class IAPManager : PersistentSingleton<IAPManager>, IStoreListener
         _isBuyFromShop = true;
 
 #if UNITY_EDITOR
-        OnPurchaseComplete(productId);
+        /*OnPurchaseComplete(productId);*/
 #else
-            // If Purchasing has been initialized ...
+            /*// If Purchasing has been initialized ...
             if (IsInitialized())
             {
                 Product product = storeController.products.WithID(productId);
@@ -89,17 +89,19 @@ public class IAPManager : PersistentSingleton<IAPManager>, IStoreListener
                 // ... report the fact Purchasing has not succeeded initializing yet. Consider waiting longer or 
                 // retrying initialization.
                 Debug.Log("BuyProductID FAIL. Not initialized.");
-            }
+            }*/
 #endif
     }
 
     private bool IsInitialized()
     {
-        // Only say we are initialized if both the Purchasing references are set.
-        return storeController != null && extensionProvider != null;
+        /*// Only say we are initialized if both the Purchasing references are set.
+        return storeController != null && extensionProvider != null;*/
+
+        return false;
     }
 
-    public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
+    /*public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
     {
         // Purchasing has succeeded initializing. Collect our Purchasing references.
         Debug.Log("OnInitialized: PASS");
@@ -248,5 +250,5 @@ public class IAPManager : PersistentSingleton<IAPManager>, IStoreListener
     {
         Debug.Log(string.Format("OnPurchaseFailed: FAIL. Product: '{0}', PurchaseFailureReason: {1}",
             product.definition.storeSpecificId, failureReason));
-    }
+    }*/
 }
